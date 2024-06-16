@@ -1,0 +1,15 @@
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\bin\Debug\net8.0\ProjectASP.Domain.deps.json
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\bin\Debug\net8.0\ProjectASP.Domain.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\bin\Debug\net8.0\ProjectASP.Domain.pdb
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.AssemblyInfoInputs.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.AssemblyInfo.cs
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.csproj.CoreCompileInputs.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\refint\ProjectASP.Domain.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.pdb
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ref\ProjectASP.Domain.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.csproj.AssemblyReference.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\bin\Debug\net8.0\ProjectASP.Domain.runtimeconfig.json
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.genruntimeconfig.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP\obj\Debug\net8.0\ProjectASP.Domain.sourcelink.json

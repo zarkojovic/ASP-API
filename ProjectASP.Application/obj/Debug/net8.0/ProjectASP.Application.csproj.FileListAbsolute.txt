@@ -1,0 +1,16 @@
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\bin\Debug\net8.0\ProjectASP.Application.deps.json
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\bin\Debug\net8.0\ProjectASP.Application.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\bin\Debug\net8.0\ProjectASP.Application.pdb
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\bin\Debug\net8.0\ProjectASP.Domain.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\bin\Debug\net8.0\ProjectASP.Domain.pdb
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.csproj.AssemblyReference.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.AssemblyInfoInputs.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.AssemblyInfo.cs
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.csproj.CoreCompileInputs.cache
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectA.4FFBEF0F.Up2Date
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\refint\ProjectASP.Application.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.pdb
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ref\ProjectASP.Application.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.Application\obj\Debug\net8.0\ProjectASP.Application.sourcelink.json

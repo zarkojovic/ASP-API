@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "w7WED0U3qlWVc5B62c6c7NprMQGEu+gu/Lte+L+F74M=",
+  "Source": "ProjectASP.API",
+  "BasePath": "_content/ProjectASP.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ProjectASP.API\\wwwroot",
+      "Source": "ProjectASP.API",
+      "ContentRoot": "C:\\Users\\zarko\\source\\repos\\ProjectASP\\ProjectASP.API\\wwwroot\\",
+      "BasePath": "_content/ProjectASP.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
