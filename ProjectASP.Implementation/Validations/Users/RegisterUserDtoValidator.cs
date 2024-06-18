@@ -47,7 +47,7 @@ namespace ProjectASP.Implementation.Validations.Users
                 .MinimumLength(9)
                 .WithMessage("Phone number must have a minimum of 9 characters.")
                 .MaximumLength(20)
-                .WithMessage("Phone number can have a maximum of 15 characters.");
+                .WithMessage("Phone number can have a maximum of 20 characters.");
 
             RuleFor(x => x.Password)
                 .NotEmpty()

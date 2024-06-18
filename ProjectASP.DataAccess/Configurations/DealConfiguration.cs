@@ -25,14 +25,15 @@ namespace ProjectASP.DataAccess.Configurations
                 .HasMaxLength(60)
                 .IsRequired();
 
-            builder.HasMany(x => x.UserInfo)
-                .WithOne(y => y.Deal)
-                .HasForeignKey(x => x.DealId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+            
             builder.HasOne(x => x.Stage)
                 .WithMany(y => y.Deals)
                 .HasForeignKey(x => x.StageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.User)
+                .WithMany(y => y.Deals)
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

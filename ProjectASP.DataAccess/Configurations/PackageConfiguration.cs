@@ -13,10 +13,14 @@ namespace ProjectASP.DataAccess.Configurations
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Package> builder)
         {
-            //builder.HasMany(x => x.Pages)
-            //    .WithOne(x => x.Packages)
-            //    .HasForeignKey(x => x.PackageId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Pages)
+                .WithMany(x => x.Packages)
+                .UsingEntity(x => x.ToTable("PackagePages"));
+
+            builder.HasMany(x => x.Users)
+                .WithOne(x => x.Package)
+                .HasForeignKey(x => x.PackageId);
 
         }
     }

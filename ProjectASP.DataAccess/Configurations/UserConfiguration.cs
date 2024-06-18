@@ -61,6 +61,10 @@ namespace ProjectASP.DataAccess.Configurations
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
 
+            builder.HasMany(x => x.Deals)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
+
             builder.HasMany(x => x.Students)
                 .WithOne(x => x.Company)
                 .HasForeignKey(x => x.CompanyId);

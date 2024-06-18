@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectASP.Application.DTO;
 using ProjectASP.Application.DTO.Roles;
 using ProjectASP.Application.UseCases.Commands.Roles;
 using ProjectASP.DataAccess;
@@ -42,5 +43,55 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return NoContent();
         }
+        [HttpPost]
+        public IActionResult Create([FromBody] LookupEntityDTO dto, [FromServices] ICreateRoleCommand cmd)
+        {
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return Created();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] LookupEntityDTO dto)
+        {
+
+            Role role = _context.Roles.Find(id);
+
+            if (role == null)
+            {
+                throw new NullReferenceException("Role not found.");
+            }
+
+            role.Name = dto.Name;
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+
+            Role role = _context.Roles.Find(id);
+
+            if (role == null)
+            {
+                throw new NullReferenceException("Role not found.");
+            }
+
+            if(role.Users.Count > 0)
+            {
+                throw new Exception("Role has users.");
+            }
+
+            _context.Roles.Remove(role);
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
+
     }
 }

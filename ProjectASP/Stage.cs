@@ -12,6 +12,6 @@ namespace ProjectASP.Domain
 
         public virtual ICollection<Deal> Deals { get; set; } = new HashSet<Deal>();
 
-        public virtual ICollection<CategoryStage> Categories { get; set; } = new HashSet<CategoryStage>();
+        public virtual ICollection<Category> Categories { get; set; } = new HashSet<Category>();
     }
 }

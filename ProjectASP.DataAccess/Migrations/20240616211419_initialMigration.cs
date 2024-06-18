@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProjectASP.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initalPush : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -206,24 +206,24 @@ namespace ProjectASP.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryStage",
+                name: "CategoryStages",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    StageId = table.Column<int>(type: "int", nullable: false)
+                    CategoriesId = table.Column<int>(type: "int", nullable: false),
+                    StagesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryStage", x => new { x.StageId, x.CategoryId });
+                    table.PrimaryKey("PK_CategoryStages", x => new { x.CategoriesId, x.StagesId });
                     table.ForeignKey(
-                        name: "FK_CategoryStage_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_CategoryStages_Categories_CategoriesId",
+                        column: x => x.CategoriesId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoryStage_Stages_StageId",
-                        column: x => x.StageId,
+                        name: "FK_CategoryStages_Stages_StagesId",
+                        column: x => x.StagesId,
                         principalTable: "Stages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -279,7 +279,7 @@ namespace ProjectASP.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryPage",
+                name: "CategoryPages",
                 columns: table => new
                 {
                     CategoriesId = table.Column<int>(type: "int", nullable: false),
@@ -287,15 +287,15 @@ namespace ProjectASP.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryPage", x => new { x.CategoriesId, x.PagesId });
+                    table.PrimaryKey("PK_CategoryPages", x => new { x.CategoriesId, x.PagesId });
                     table.ForeignKey(
-                        name: "FK_CategoryPage_Categories_CategoriesId",
+                        name: "FK_CategoryPages_Categories_CategoriesId",
                         column: x => x.CategoriesId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoryPage_Pages_PagesId",
+                        name: "FK_CategoryPages_Pages_PagesId",
                         column: x => x.PagesId,
                         principalTable: "Pages",
                         principalColumn: "Id",
@@ -303,24 +303,24 @@ namespace ProjectASP.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PackagePage",
+                name: "PackagePages",
                 columns: table => new
                 {
-                    PackageId = table.Column<int>(type: "int", nullable: false),
-                    PageId = table.Column<int>(type: "int", nullable: false)
+                    PackagesId = table.Column<int>(type: "int", nullable: false),
+                    PagesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PackagePage", x => new { x.PageId, x.PackageId });
+                    table.PrimaryKey("PK_PackagePages", x => new { x.PackagesId, x.PagesId });
                     table.ForeignKey(
-                        name: "FK_PackagePage_Packages_PackageId",
-                        column: x => x.PackageId,
+                        name: "FK_PackagePages_Packages_PackagesId",
+                        column: x => x.PackagesId,
                         principalTable: "Packages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PackagePage_Pages_PageId",
-                        column: x => x.PageId,
+                        name: "FK_PackagePages_Pages_PagesId",
+                        column: x => x.PagesId,
                         principalTable: "Pages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -356,12 +356,12 @@ namespace ProjectASP.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    DealId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     FieldId = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DisplayValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
@@ -369,12 +369,6 @@ namespace ProjectASP.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserInfo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserInfo_Deals_DealId",
-                        column: x => x.DealId,
-                        principalTable: "Deals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserInfo_Fields_FieldId",
                         column: x => x.FieldId,
@@ -385,7 +379,8 @@ namespace ProjectASP.DataAccess.Migrations
                         name: "FK_UserInfo_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -395,14 +390,14 @@ namespace ProjectASP.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryPage_PagesId",
-                table: "CategoryPage",
+                name: "IX_CategoryPages_PagesId",
+                table: "CategoryPages",
                 column: "PagesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryStage_CategoryId",
-                table: "CategoryStage",
-                column: "CategoryId");
+                name: "IX_CategoryStages_StagesId",
+                table: "CategoryStages",
+                column: "StagesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Deals_StageId",
@@ -431,9 +426,9 @@ namespace ProjectASP.DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PackagePage_PackageId",
-                table: "PackagePage",
-                column: "PackageId");
+                name: "IX_PackagePages_PagesId",
+                table: "PackagePages",
+                column: "PagesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Packages_Name",
@@ -457,11 +452,6 @@ namespace ProjectASP.DataAccess.Migrations
                 table: "Stages",
                 column: "Name",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInfo_DealId",
-                table: "UserInfo",
-                column: "DealId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserInfo_FieldId",
@@ -511,10 +501,13 @@ namespace ProjectASP.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CategoryPage");
+                name: "CategoryPages");
 
             migrationBuilder.DropTable(
-                name: "CategoryStage");
+                name: "CategoryStages");
+
+            migrationBuilder.DropTable(
+                name: "Deals");
 
             migrationBuilder.DropTable(
                 name: "FieldItems");
@@ -526,7 +519,7 @@ namespace ProjectASP.DataAccess.Migrations
                 name: "Notification");
 
             migrationBuilder.DropTable(
-                name: "PackagePage");
+                name: "PackagePages");
 
             migrationBuilder.DropTable(
                 name: "RoleUseCase");
@@ -535,19 +528,16 @@ namespace ProjectASP.DataAccess.Migrations
                 name: "UserInfo");
 
             migrationBuilder.DropTable(
-                name: "Pages");
+                name: "Stages");
 
             migrationBuilder.DropTable(
-                name: "Deals");
+                name: "Pages");
 
             migrationBuilder.DropTable(
                 name: "Fields");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Stages");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -29,6 +29,15 @@ namespace ProjectASP.DataAccess.Configurations
                 .HasForeignKey(x => x.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasMany(x => x.Packages)
+                .WithMany(x => x.Pages)
+                .UsingEntity(x => x.ToTable("PackagePages"));
+
+            builder.HasMany(x => x.Categories)
+                .WithMany(x => x.Pages)
+                .UsingEntity(x => x.ToTable("CategoryPages"));
+
+
         }
     }
 }

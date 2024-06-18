@@ -33,7 +33,7 @@ namespace ProjectASP.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] RegisterUserDTO dto, [FromServices] IRegisterUserCommand cmd)
+        public IActionResult Create([FromBody] RegisterUserDTO dto, [FromServices] IRegisterUserCommand cmd)
         {
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
@@ -46,5 +46,14 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return Ok();
         }
+        [Authorize]
+        [HttpPut]
+        public IActionResult Update([FromBody] UpdateUserDTO dto, [FromServices] IUpdateUserCommand cmd)
+        {
+            dto.Id = _actor.GetActor().Id;
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return NoContent();
+        }
+
     }
 }

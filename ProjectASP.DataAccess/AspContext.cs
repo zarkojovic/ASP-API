@@ -39,7 +39,6 @@ namespace ProjectASP.DataAccess
                 x.RoleId,
                 x.UseCaseId
             });
-
             
             base.OnModelCreating(modelBuilder);
         }
@@ -71,12 +70,10 @@ namespace ProjectASP.DataAccess
             return base.SaveChanges();
         }
 
-
         public DbSet<User> Users { get; set; }
         public DbSet<Deal> Deals { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Field> Fields { get; set; }
-        public DbSet<CategoryStage> CategoryStage { get; set; }
         public DbSet<FieldItem> FieldItems { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Package> Packages { get; set; }
@@ -85,7 +82,6 @@ namespace ProjectASP.DataAccess
         public DbSet<Stage> Stages { get; set; }
         public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<RoleUseCase> RoleUseCase { get; set; }
-        public DbSet<PackagePage> PackagePage { get; set; }
 
     }
 }

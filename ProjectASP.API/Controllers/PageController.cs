@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectASP.Application.DTO.Pages;
+using ProjectASP.Application.UseCases.Commands.Pages;
 using ProjectASP.DataAccess;
 using ProjectASP.Domain;
+using ProjectASP.Implementation;
 
 namespace ProjectASP.API.Controllers
 {
@@ -11,13 +14,15 @@ namespace ProjectASP.API.Controllers
     public class PageController : Controller
     {
         private readonly AspContext _context;
-        public PageController(AspContext context)
+        private readonly UseCaseHandler _useCaseHandler;
+        public PageController(AspContext context, UseCaseHandler useCaseHandler)
         {
             _context = context;
+            _useCaseHandler = useCaseHandler;
         }
 
         [HttpGet]
-        public ActionResult Seeder()
+        public IActionResult Seeder()
         {
             Page p1 = new Page()
             {
@@ -25,7 +30,8 @@ namespace ProjectASP.API.Controllers
                 Route = "/profile",
                 Icon = "tabler:profile",
                 Role = _context.Roles.First(x => x.Name == "User"),
-                Order = 1
+                Order = 1,
+                Categories = _context.Categories.Where(x => new List<string>() { "Personal Information" , "Address"}.Contains(x.Name)).ToList()
             };
             Page p2 = new Page()
             {
@@ -33,7 +39,8 @@ namespace ProjectASP.API.Controllers
                 Route = "/documents",
                 Icon = "tabler:documents",
                 Role = _context.Roles.First(x => x.Name == "User"),
-                Order = 2
+                Order = 2,
+                Categories = _context.Categories.Where(x => x.Name == "Documents").ToList()
             };
             Page p3 = new Page()
             {
@@ -56,6 +63,45 @@ namespace ProjectASP.API.Controllers
             _context.Pages.Add(p2);
             _context.Pages.Add(p3);
             _context.Pages.Add(p4);
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public IActionResult Create([FromBody]CreatePageDTO dto, [FromServices] ICreatePageCommand cmd)
+        {
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return Created();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id,[FromBody]UpdatePageDTO dto, [FromServices] IUpdatePageCommand cmd)
+        {
+            dto.Id = id;
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+
+            Page page = _context.Pages.Find(id);
+
+            if (page == null)
+            {
+                throw new NullReferenceException("Page not found.");
+            }
+
+            if (page.Categories.Count > 0)
+            {
+                throw new Exception("Page has Categories.");
+            }
+
+            _context.Pages.Remove(page);
 
             _context.SaveChanges();
 

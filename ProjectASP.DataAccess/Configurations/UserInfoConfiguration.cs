@@ -20,10 +20,6 @@ namespace ProjectASP.DataAccess
                 .WithMany(x => x.UserInfo)
                 .HasForeignKey(x => x.UserId);
 
-            builder.HasOne(x => x.Deal)
-                .WithMany(x => x.UserInfo)
-                .HasForeignKey(x => x.DealId);
-
             builder.HasOne(x => x.Field)
                 .WithMany(x => x.UserInfo)
                 .HasForeignKey(x => x.FieldId);

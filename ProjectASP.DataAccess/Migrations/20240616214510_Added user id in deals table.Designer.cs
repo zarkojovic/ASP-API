@@ -12,8 +12,8 @@ using ProjectASP.DataAccess;
 namespace ProjectASP.DataAccess.Migrations
 {
     [DbContext(typeof(AspContext))]
-    [Migration("20240615192401_initalPush")]
-    partial class initalPush
+    [Migration("20240616214510_Added user id in deals table")]
+    partial class Addeduseridindealstable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,37 @@ namespace ProjectASP.DataAccess.Migrations
 
                     b.HasIndex("PagesId");
 
-                    b.ToTable("CategoryPage");
+                    b.ToTable("CategoryPages", (string)null);
+                });
+
+            modelBuilder.Entity("CategoryStage", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StagesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriesId", "StagesId");
+
+                    b.HasIndex("StagesId");
+
+                    b.ToTable("CategoryStages", (string)null);
+                });
+
+            modelBuilder.Entity("PackagePage", b =>
+                {
+                    b.Property<int>("PackagesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PagesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PackagesId", "PagesId");
+
+                    b.HasIndex("PagesId");
+
+                    b.ToTable("PackagePages", (string)null);
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Category", b =>
@@ -82,21 +112,6 @@ namespace ProjectASP.DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ProjectASP.Domain.CategoryStage", b =>
-                {
-                    b.Property<int>("StageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StageId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CategoryStage");
-                });
-
             modelBuilder.Entity("ProjectASP.Domain.Deal", b =>
                 {
                     b.Property<int>("Id")
@@ -136,9 +151,14 @@ namespace ProjectASP.DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StageId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Deals");
                 });
@@ -332,21 +352,6 @@ namespace ProjectASP.DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Packages");
-                });
-
-            modelBuilder.Entity("ProjectASP.Domain.PackagePage", b =>
-                {
-                    b.Property<int>("PageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PackageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PageId", "PackageId");
-
-                    b.HasIndex("PackageId");
-
-                    b.ToTable("PackagePage");
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Page", b =>
@@ -579,18 +584,16 @@ namespace ProjectASP.DataAccess.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int?>("DealId")
-                        .HasColumnType("int");
+                    b.Property<string>("DisplayValue")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FieldId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -601,16 +604,13 @@ namespace ProjectASP.DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DealId");
 
                     b.HasIndex("FieldId");
 
@@ -634,23 +634,34 @@ namespace ProjectASP.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectASP.Domain.CategoryStage", b =>
+            modelBuilder.Entity("CategoryStage", b =>
                 {
-                    b.HasOne("ProjectASP.Domain.Category", "Category")
-                        .WithMany("Stages")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("ProjectASP.Domain.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectASP.Domain.Stage", "Stage")
-                        .WithMany("Categories")
-                        .HasForeignKey("StageId")
+                    b.HasOne("ProjectASP.Domain.Stage", null)
+                        .WithMany()
+                        .HasForeignKey("StagesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PackagePage", b =>
+                {
+                    b.HasOne("ProjectASP.Domain.Package", null)
+                        .WithMany()
+                        .HasForeignKey("PackagesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
-
-                    b.Navigation("Stage");
+                    b.HasOne("ProjectASP.Domain.Page", null)
+                        .WithMany()
+                        .HasForeignKey("PagesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Deal", b =>
@@ -661,7 +672,15 @@ namespace ProjectASP.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ProjectASP.Domain.User", "User")
+                        .WithMany("Deals")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Stage");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Field", b =>
@@ -694,25 +713,6 @@ namespace ProjectASP.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectASP.Domain.PackagePage", b =>
-                {
-                    b.HasOne("ProjectASP.Domain.Package", "Package")
-                        .WithMany("Pages")
-                        .HasForeignKey("PackageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectASP.Domain.Page", "Page")
-                        .WithMany("Packages")
-                        .HasForeignKey("PageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Package");
-
-                    b.Navigation("Page");
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Page", b =>
@@ -764,11 +764,6 @@ namespace ProjectASP.DataAccess.Migrations
 
             modelBuilder.Entity("ProjectASP.Domain.UserInfo", b =>
                 {
-                    b.HasOne("ProjectASP.Domain.Deal", "Deal")
-                        .WithMany("UserInfo")
-                        .HasForeignKey("DealId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("ProjectASP.Domain.Field", "Field")
                         .WithMany("UserInfo")
                         .HasForeignKey("FieldId")
@@ -777,9 +772,9 @@ namespace ProjectASP.DataAccess.Migrations
 
                     b.HasOne("ProjectASP.Domain.User", "User")
                         .WithMany("UserInfo")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Deal");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Field");
 
@@ -789,13 +784,6 @@ namespace ProjectASP.DataAccess.Migrations
             modelBuilder.Entity("ProjectASP.Domain.Category", b =>
                 {
                     b.Navigation("Fields");
-
-                    b.Navigation("Stages");
-                });
-
-            modelBuilder.Entity("ProjectASP.Domain.Deal", b =>
-                {
-                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Field", b =>
@@ -807,14 +795,7 @@ namespace ProjectASP.DataAccess.Migrations
 
             modelBuilder.Entity("ProjectASP.Domain.Package", b =>
                 {
-                    b.Navigation("Pages");
-
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("ProjectASP.Domain.Page", b =>
-                {
-                    b.Navigation("Packages");
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.Role", b =>
@@ -828,13 +809,13 @@ namespace ProjectASP.DataAccess.Migrations
 
             modelBuilder.Entity("ProjectASP.Domain.Stage", b =>
                 {
-                    b.Navigation("Categories");
-
                     b.Navigation("Deals");
                 });
 
             modelBuilder.Entity("ProjectASP.Domain.User", b =>
                 {
+                    b.Navigation("Deals");
+
                     b.Navigation("Notifications");
 
                     b.Navigation("Students");

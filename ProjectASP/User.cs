@@ -23,6 +23,7 @@ namespace ProjectASP.Domain
         public virtual Package Package { get; set; }
         public virtual ICollection<UserInfo> UserInfo { get; set; } = new HashSet<UserInfo>();
         public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
+        public virtual ICollection<Deal> Deals { get; set; } = new HashSet<Deal>();
         public virtual ICollection<User> Students { get; set; } = new HashSet<User>();
     }
 }

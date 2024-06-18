@@ -17,6 +17,19 @@ namespace ProjectASP.DataAccess.Configurations
             builder.Property(x => x.ReadOnly)
                 .HasDefaultValue(true)
                 .IsRequired();
+
+            builder.HasMany(x => x.Pages)
+                .WithMany(x => x.Categories)
+                .UsingEntity(x => x.ToTable("CategoryPages"));
+
+            builder.HasMany(x => x.Stages)
+                .WithMany(x => x.Categories)
+                .UsingEntity(x => x.ToTable("CategoryStages"));
+
+            builder.HasMany(x => x.Fields)
+                .WithOne(x => x.Category)
+                .HasForeignKey(x => x.CategoryId);
+
         }
     }
 }

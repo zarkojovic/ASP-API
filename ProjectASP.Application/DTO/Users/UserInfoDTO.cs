@@ -8,8 +8,7 @@ namespace ProjectASP.Application.DTO.Users
 {
     public class UserInfoDTO
     {
-        public int? UserId { get; set; }
-        public int? DealId { get; set; }
+        public int UserId { get; set; }
         public int FieldId { get; set; }
         public string? Value { get; set; }
         public string? DisplayValue { get; set; }

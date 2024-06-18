@@ -13,7 +13,7 @@ namespace ProjectASP.Domain
         public int RoleId { get; set; }
         public int? Order {  get; set; }
         public virtual Role Role { get; set; }
-        public virtual ICollection<PackagePage> Packages { get; set; } = new HashSet<PackagePage>();
+        public virtual ICollection<Package> Packages { get; set; } = new HashSet<Package>();
         public virtual ICollection<Category> Categories {  get; set; } = new HashSet<Category>();
     }
 }

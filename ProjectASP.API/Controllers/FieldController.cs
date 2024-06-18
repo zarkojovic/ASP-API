@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 
 using ProjectASP.API.DTO;
+using ProjectASP.Application.DTO.Fields;
+using ProjectASP.Application.UseCases.Commands.Fields;
 using ProjectASP.DataAccess;
 using ProjectASP.Domain;
+using ProjectASP.Implementation;
 using System.Text.Json;
 
 namespace ProjectASP.API.Controllers
@@ -13,12 +16,12 @@ namespace ProjectASP.API.Controllers
     public class FieldController : Controller
     {
         private readonly AspContext _context;
-        public FieldController([FromServices] AspContext context)
+        private readonly UseCaseHandler _useCaseHandler;
+        public FieldController([FromServices] AspContext context, UseCaseHandler useCaseHandler)
         {
             _context = context;
+            _useCaseHandler = useCaseHandler;
         }
-
-        // GET: HomeController
         [HttpGet]
         public async Task<IActionResult> Seeder()
         {
@@ -70,6 +73,44 @@ namespace ProjectASP.API.Controllers
 
 
         }
+        [HttpPost]
+        public IActionResult Create([FromBody]CreateFieldDTO dto, [FromServices]ICreateFieldCommand cmd)
+        {
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return Created();
+        }
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody]UpdateFieldDTO dto, [FromServices]IUpdateFieldCommand cmd)
+        {
+            dto.Id = id;
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return Created();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+
+            Field field = _context.Fields.Find(id);
+
+            if (field == null)
+            {
+                throw new NullReferenceException("Field not found.");
+            }
+
+            if (field.Category != null)
+            {
+                throw new Exception("Field has category.");
+            }
+
+            _context.Fields.Remove(field);
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
 
     }
 }

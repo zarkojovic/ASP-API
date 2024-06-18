@@ -10,7 +10,7 @@ namespace ProjectASP.Domain
     {
         public bool ReadOnly { get; set; }
         public virtual ICollection<Page> Pages { get; set; } = new HashSet<Page>();
-        public virtual ICollection<CategoryStage> Stages { get; set; } = new HashSet<CategoryStage>();
+        public virtual ICollection<Stage> Stages { get; set; } = new HashSet<Stage>();
         public virtual ICollection<Field> Fields { get; set; } = new HashSet<Field>();
     }
 }

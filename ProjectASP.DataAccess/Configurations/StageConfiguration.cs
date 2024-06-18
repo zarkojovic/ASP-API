@@ -17,6 +17,11 @@ namespace ProjectASP.DataAccess.Configurations
                 .WithOne(x => x.Stage)
                 .HasForeignKey(x => x.StageId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Categories)
+                .WithMany(x => x.Stages)
+                .UsingEntity(x => x.ToTable("CategoryStages"));
+
         }
     }
 }

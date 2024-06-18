@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectASP.Application.DTO.Package;
+using ProjectASP.Application.UseCases.Commands.Packages;
 using ProjectASP.DataAccess;
 using ProjectASP.Domain;
+using ProjectASP.Implementation;
 
 namespace ProjectASP.API.Controllers
 {
@@ -10,13 +13,15 @@ namespace ProjectASP.API.Controllers
     public class PackageController : Controller
     {
         private readonly AspContext _context;
-        public PackageController([FromServices]AspContext context) 
+        private readonly UseCaseHandler _useCaseHandler;
+        public PackageController([FromServices]AspContext context, [FromServices]UseCaseHandler useCaseHandler) 
         { 
             _context = context;
+            _useCaseHandler = useCaseHandler;
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             try
             {
@@ -24,7 +29,8 @@ namespace ProjectASP.API.Controllers
                     .Where(x => x.Field.FieldKey == "Package")
                     .Select(x => new Package
                     {
-                        Name = x.Name
+                        Name = x.Name,
+                        Pages = _context.Pages.ToList()
                     })
                     .ToList();
 
@@ -40,5 +46,42 @@ namespace ProjectASP.API.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult Create([FromServices] ICreatePackageCommand cmd, [FromBody] CreatePackageDTO dto)
+        {
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return Created();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id,[FromServices] IUpdatePackageCommand cmd, [FromBody] UpdatePackageDTO dto)
+        {
+            dto.Id = id;
+            _useCaseHandler.HandleCommand(cmd, dto);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+
+            Package package = _context.Packages.Find(id);
+
+            if (package == null)
+            {
+                throw new NullReferenceException("Package not found.");
+            }
+
+            if (package.Users.Count > 0)
+            {
+                throw new Exception("Package has users.");
+            }
+
+            _context.Packages.Remove(package);
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

@@ -12,9 +12,9 @@ namespace ProjectASP.Domain
         public string Degree { get; set; }
         public string Program { get; set; }
         public int StageId { get; set; }
-
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
         public virtual Stage Stage {  get; set; }
 
-        public virtual ICollection<UserInfo> UserInfo { get; set; } = new HashSet<UserInfo>();
     }
 }
