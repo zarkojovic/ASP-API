@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectASP.Application.DTO;
 using ProjectASP.Application.DTO.Roles;
@@ -20,7 +21,6 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler = useCase;
             _context = context;
         }
-
         [HttpGet]
         public IActionResult Seeder()
         {
@@ -35,7 +35,7 @@ namespace ProjectASP.API.Controllers
             _context.SaveChanges();
             return Ok();
         }
-
+        [Authorize]
         [HttpPost("{id}/access")]
         public IActionResult ModifyAccess(int id, [FromBody] ModifyRoleAccessDTO dto, [FromServices] IModifyRoleAccessCommand cmd)
         {
@@ -43,13 +43,14 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return NoContent();
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromBody] LookupEntityDTO dto, [FromServices] ICreateRoleCommand cmd)
         {
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] LookupEntityDTO dto)
         {
@@ -67,7 +68,7 @@ namespace ProjectASP.API.Controllers
 
             return Ok();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {

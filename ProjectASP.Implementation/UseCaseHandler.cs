@@ -32,8 +32,8 @@ namespace ProjectASP.Implementation
 
             Console.WriteLine($"UseCase: {command.Name}, {stopwatch.ElapsedMilliseconds} ms");
         }
-
-        public TResult HandleQuery<TResult, TSearch>(Application.IQuery<TResult, TSearch> query, TSearch search)
+        
+        public TResult HandleQuery<TResult, TSearch>(Application.UseCases.IQuery<TResult, TSearch> query, TSearch search)
             where TResult : class
 
         {

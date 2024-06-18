@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using ProjectASP.API.DTO;
 using ProjectASP.Application.DTO.Fields;
 using ProjectASP.Application.UseCases.Commands.Fields;
+using ProjectASP.Application.UseCases.Queries.Fields;
 using ProjectASP.DataAccess;
 using ProjectASP.Domain;
 using ProjectASP.Implementation;
@@ -22,7 +24,8 @@ namespace ProjectASP.API.Controllers
             _context = context;
             _useCaseHandler = useCaseHandler;
         }
-        [HttpGet]
+        [Authorize]
+        [HttpGet("seeder")]
         public async Task<IActionResult> Seeder()
         {
 
@@ -73,12 +76,14 @@ namespace ProjectASP.API.Controllers
 
 
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromBody]CreateFieldDTO dto, [FromServices]ICreateFieldCommand cmd)
         {
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
         }
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]UpdateFieldDTO dto, [FromServices]IUpdateFieldCommand cmd)
         {
@@ -86,7 +91,11 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
         }
-
+        [Authorize]
+        [HttpGet]
+        public IActionResult Get([FromQuery] SearchFieldsDTO search, [FromServices] IGetFieldsQuery query)
+            => Ok(_useCaseHandler.HandleQuery(query, search));
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {

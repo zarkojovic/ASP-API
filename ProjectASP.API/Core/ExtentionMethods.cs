@@ -8,6 +8,9 @@ using ProjectASP.Application.UseCases.Commands.Packages;
 using ProjectASP.Application.UseCases.Commands.Pages;
 using ProjectASP.Application.UseCases.Commands.Roles;
 using ProjectASP.Application.UseCases.Commands.Users;
+using ProjectASP.Application.UseCases.Queries.Categories;
+using ProjectASP.Application.UseCases.Queries.Fields;
+using ProjectASP.Application.UseCases.Queries.Users;
 using ProjectASP.Implementation.UseCases.Commands.Auth;
 using ProjectASP.Implementation.UseCases.Commands.Categories;
 using ProjectASP.Implementation.UseCases.Commands.Deals;
@@ -16,6 +19,9 @@ using ProjectASP.Implementation.UseCases.Commands.Packages;
 using ProjectASP.Implementation.UseCases.Commands.Pages;
 using ProjectASP.Implementation.UseCases.Commands.Roles;
 using ProjectASP.Implementation.UseCases.Commands.Users;
+using ProjectASP.Implementation.UseCases.Queries.Categories;
+using ProjectASP.Implementation.UseCases.Queries.Fields;
+using ProjectASP.Implementation.UseCases.Queries.Users;
 using ProjectASP.Implementation.Validations;
 using ProjectASP.Implementation.Validations.Categories;
 using ProjectASP.Implementation.Validations.Deals;
@@ -63,6 +69,10 @@ namespace ProjectASP.API.Core
             services.AddTransient<CreateFieldValidator>();
             services.AddTransient<IUpdateFieldCommand, EfUpdateFieldCommand>();
             services.AddTransient<UpdateFieldValidator>();
+            services.AddTransient<IGetFieldsQuery, EfGetFieldsQuery>();
+            services.AddTransient<ISearchUsersQuery, EfGetUsersQuery>();
+            services.AddTransient<IFindUserQuery, EfFindUserQuery>();
+            services.AddTransient<IFindCategoryQuery, EfFindCategoryQuery>();
         }
         public static Guid? GetTokenId(this HttpRequest request)
         {

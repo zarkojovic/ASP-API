@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectASP.API.DTO;
 
 namespace ProjectASP.API.Controllers
@@ -12,7 +13,7 @@ namespace ProjectASP.API.Controllers
         {
             ".jpg", ".jpeg", ".png"
         };
-
+        [Authorize]
         [HttpGet("{fileName}")]
         public IActionResult GetFile(string fileName)
         {
@@ -20,8 +21,7 @@ namespace ProjectASP.API.Controllers
 
             return Ok(new { exists = Path.Exists(path) });
         }
-
-        // POST api/<FilesController>
+        [Authorize]
         [HttpPost]
         public IActionResult Post([FromForm] FIleUploadDto dto)
         {

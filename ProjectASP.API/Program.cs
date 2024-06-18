@@ -7,8 +7,6 @@ using ProjectASP.Application.UseCases.Commands.Users;
 using ProjectASP.DataAccess;
 using ProjectASP.Implementation;
 using ProjectASP.Implementation.Logging.UseCases;
-using ProjectASP.Implementation.UseCases.Commands.Users;
-using ProjectASP.Implementation.Validations.Users;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

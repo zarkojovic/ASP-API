@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectASP.Application.DTO.Pages;
 using ProjectASP.Application.UseCases.Commands.Pages;
@@ -20,7 +21,7 @@ namespace ProjectASP.API.Controllers
             _context = context;
             _useCaseHandler = useCaseHandler;
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Seeder()
         {
@@ -69,14 +70,14 @@ namespace ProjectASP.API.Controllers
             return Ok();
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromBody]CreatePageDTO dto, [FromServices] ICreatePageCommand cmd)
         {
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id,[FromBody]UpdatePageDTO dto, [FromServices] IUpdatePageCommand cmd)
         {
@@ -84,7 +85,7 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return Ok();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {

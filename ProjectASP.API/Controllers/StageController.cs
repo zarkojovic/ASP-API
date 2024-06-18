@@ -16,8 +16,8 @@ namespace ProjectASP.API.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public ActionResult Index()
+        [HttpGet("seeder")]
+        public ActionResult Seeder()
         {
             try
             {

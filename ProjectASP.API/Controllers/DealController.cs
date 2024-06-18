@@ -28,6 +28,7 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return Ok();
         }
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]IUpdateDealDTO dto, [FromServices] IUpdateDealCommand cmd)
         {

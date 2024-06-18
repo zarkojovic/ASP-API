@@ -151,3 +151,5 @@ C:\Users\zarko\source\repos\ProjectASP\ProjectASP.API\bin\Debug\net8.0\Newtonsof
 C:\Users\zarko\source\repos\ProjectASP\ProjectASP.API\obj\Debug\net8.0\ProjectASP.API.sourcelink.json
 C:\Users\zarko\source\repos\ProjectASP\ProjectASP.API\bin\Debug\net8.0\ProjectASP.API.staticwebassets.runtime.json
 C:\Users\zarko\source\repos\ProjectASP\ProjectASP.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.API\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\zarko\source\repos\ProjectASP\ProjectASP.API\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

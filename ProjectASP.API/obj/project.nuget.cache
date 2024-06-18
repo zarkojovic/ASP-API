@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "efq5m7aR/GhQGqTji7iianTNxs/3UbmvDMdQ6v5+0ikiDxYeNLv3EGNJqCSibVuI2AX5TUZVMeJuWktbS7ssog==",
+  "dgSpecHash": "SEr4greuxOBZObYq+w4jN1gVd1XtzYalgcC7aoZH34z+ScqrrG85zleO+Lpcg7ohVB/3U5j5aFgFVCeZdcRc9Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\zarko\\source\\repos\\ProjectASP\\ProjectASP.API\\ProjectASP.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\zarko\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\zarko\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\zarko\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\zarko\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\zarko\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
@@ -90,6 +92,16 @@
     "C:\\Users\\zarko\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 13.0.1 was resolved.",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

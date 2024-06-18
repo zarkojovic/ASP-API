@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectASP.Application.DTO.Package;
 using ProjectASP.Application.UseCases.Commands.Packages;
@@ -19,7 +20,7 @@ namespace ProjectASP.API.Controllers
             _context = context;
             _useCaseHandler = useCaseHandler;
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Index()
         {
@@ -45,14 +46,14 @@ namespace ProjectASP.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error has occured.");
             }
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromServices] ICreatePackageCommand cmd, [FromBody] CreatePackageDTO dto)
         {
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id,[FromServices] IUpdatePackageCommand cmd, [FromBody] UpdatePackageDTO dto)
         {
@@ -60,7 +61,7 @@ namespace ProjectASP.API.Controllers
             _useCaseHandler.HandleCommand(cmd, dto);
             return NoContent();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {

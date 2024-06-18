@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectASP.Application.DTO.Categories;
 using ProjectASP.Application.UseCases.Commands.Categories;
+using ProjectASP.Application.UseCases.Queries.Categories;
+using ProjectASP.Application.UseCases.Queries.Users;
 using ProjectASP.DataAccess;
 using ProjectASP.Domain;
 using ProjectASP.Implementation;
@@ -20,6 +23,7 @@ namespace ProjectASP.API.Controllers
             _context = context;
             _useCaseHandler = handler;
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Seeder()
         {
@@ -63,12 +67,21 @@ namespace ProjectASP.API.Controllers
 
             return Ok();
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromBody]CreateCategoryDTO dto, [FromServices]ICreateCategoryCommand cmd)
         {
             _useCaseHandler.HandleCommand(cmd, dto);
             return Created();
         }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult Find(int id, [FromServices] IFindCategoryQuery query)
+            => Ok(_useCaseHandler.HandleQuery(query, id));
+
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] UpdateCategoryDTO dto, [FromServices]IUpdateCategoryCommand cmd)
         {
@@ -77,6 +90,7 @@ namespace ProjectASP.API.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
