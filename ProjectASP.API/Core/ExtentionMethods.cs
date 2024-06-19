@@ -67,6 +67,8 @@ namespace ProjectASP.API.Core
             services.AddTransient<UpdatePageValidator>();
             services.AddTransient<ICreateFieldCommand, EfCreateFieldCommand>();
             services.AddTransient<CreateFieldValidator>();
+            services.AddTransient<IDeleteDealCommand, EfDeleteDealCommand>();
+            services.AddTransient<DeleteDealValidator>();
             services.AddTransient<IUpdateFieldCommand, EfUpdateFieldCommand>();
             services.AddTransient<UpdateFieldValidator>();
             services.AddTransient<IGetFieldsQuery, EfGetFieldsQuery>();

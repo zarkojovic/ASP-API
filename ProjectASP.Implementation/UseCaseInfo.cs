@@ -21,6 +21,6 @@ namespace ProjectASP.Implementation
             }
         }
 
-        public static int MaxUseCaseId => 20;
+        public static int MaxUseCaseId => 21;
     }
 }

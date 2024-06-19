@@ -35,7 +35,6 @@ namespace ProjectASP.API.Controllers
             _context.SaveChanges();
             return Ok();
         }
-        [Authorize]
         [HttpPost("{id}/access")]
         public IActionResult ModifyAccess(int id, [FromBody] ModifyRoleAccessDTO dto, [FromServices] IModifyRoleAccessCommand cmd)
         {

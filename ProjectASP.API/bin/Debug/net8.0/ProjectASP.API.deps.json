@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "ProjectASP.API/1.0.0": {
         "dependencies": {
+          "AutoMapper": "13.0.1",
           "BCrypt.Net": "0.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
           "Microsoft.EntityFrameworkCore": "8.0.6",

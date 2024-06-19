@@ -20,6 +20,7 @@ builder.Configuration.Bind(settings);
 // Add Singleton for JWT configuration
 builder.Services.AddSingleton(settings.Jwt);
 
+//builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Using the HttpContextAccessor to get the Authorization header from the request
 builder.Services.AddHttpContextAccessor();

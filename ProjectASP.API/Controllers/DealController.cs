@@ -29,6 +29,13 @@ namespace ProjectASP.API.Controllers
             return Ok();
         }
         [Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id, [FromServices] IDeleteDealCommand cmd)
+        {
+            _useCaseHandler.HandleCommand(cmd, id);
+            return Ok();
+        }
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]IUpdateDealDTO dto, [FromServices] IUpdateDealCommand cmd)
         {
